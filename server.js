@@ -2,6 +2,7 @@
 // where your node app starts
 
 // init project
+const ejs = require("ejs");
 const express = require('express');
 const app = express();
 
@@ -14,6 +15,12 @@ app.use(express.static('public'));
 // http://expressjs.com/en/starter/basic-routing.html
 app.get('/', function(request, response) {
   response.sendFile(__dirname + '/views/index.html');
+});
+
+app.get("/checkout", function(request, response) {
+  ejs.renderFile(__dirname + "/views/checkout.ejs", { name: "Henry" }, {}, function(err, str) {
+    response.send(str)
+  });
 });
 
 // listen for requests :)
