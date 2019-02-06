@@ -6,6 +6,8 @@ const ejs = require("ejs");
 const express = require('express');
 const app = express();
 
+app.set('view engine', 'ejs');
+
 // we've started you off with Express, 
 // but feel free to use whatever libs or frameworks you'd like through `package.json`.
 
@@ -18,9 +20,7 @@ app.get('/', function(request, response) {
 });
 
 app.get("/checkout", function(request, response) {
-  ejs.renderFile(__dirname + "/views/checkout.ejs", { name: "Tim" }, {}, function(err, str) {
-    response.send(str)
-  });
+  ejs.render(__dirname + "/views/checkout.ejs", { name: "Tim" })
 });
 
 // listen for requests :)
