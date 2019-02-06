@@ -18,7 +18,7 @@ app.get('/', function(request, response) {
 });
 
 app.get("/checkout", function(request, response) {
-  ejs.renderFile(__dirname + "/views/checkout.ejs", { name: "Henry" }, {}, function(err, str) {
+  ejs.renderFile(__dirname + "/views/checkout.ejs", { name: "Tim" }, {}, function(err, str) {
     response.send(str)
   });
 });
