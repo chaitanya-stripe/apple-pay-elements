@@ -12,7 +12,8 @@
   "dependencies": {
     "express": "^4.16.4",
     "ejs": "^2.6.1",
-    "stripe": "^6.23.1"
+    "stripe": "^6.23.1",
+    "body-parser": "^1.18.3"
   },
   "engines": {
     "node": "8.x"

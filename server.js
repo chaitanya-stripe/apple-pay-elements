@@ -3,15 +3,17 @@
 
 // init project
 const express = require('express');
+const bodyParser = require('body-parser')
 const ejs = require("ejs");
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY)
 
 const app = express();
 app.set('view engine', 'ejs');
 
-app.configure(function() {
-  app.use(express.bodyParser());
-});
+
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
 
 // http://expressjs.com/en/starter/static-files.html
 app.use(express.static('public'));
@@ -32,15 +34,14 @@ app.get("/checkout", function(request, response) {
 app.post("/charge", function(request, response) {
   console.log(request.body)
   const token = request.body.stripeToken;
-  (async () => {
-    const charge = await stripe.charges.create({
-      amount: 999,
-      currency: 'usd',
-      description: 'example charge',
-      source: token
-    });
-    
-    await console.log(charge);
+  
+  stripe.charges.create({
+    amount: 999,
+    currency: 'usd',
+    description: 'example charge',
+    source: token
+  }, function(err, charge) {
+    console.log(charge);
   });
 });
 
