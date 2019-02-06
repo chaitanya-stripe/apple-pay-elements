@@ -29,6 +29,7 @@ app.get("/checkout", function(request, response) {
 });
 
 app.post("/charge", function(request, response) {
+  console.log(request.body)
   const token = request.body.stripeToken;
   (async () => {
     const charge = await stripe.charges.create({
@@ -37,6 +38,8 @@ app.post("/charge", function(request, response) {
       description: 'example charge',
       source: token
     });
+    
+    await console.log(charge);
   });
 });
 
