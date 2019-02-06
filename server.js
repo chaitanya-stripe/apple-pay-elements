@@ -12,15 +12,19 @@ app.set('view engine', 'ejs');
 // but feel free to use whatever libs or frameworks you'd like through `package.json`.
 
 // http://expressjs.com/en/starter/static-files.html
-app.use(express.static('public'));
+// app.use(express.static('public'));
 
 // http://expressjs.com/en/starter/basic-routing.html
-app.get('/', function(request, response) {
-  response.sendFile(__dirname + '/views/index.html');
+// app.get('/', function(request, response) {
+//   response.sendFile(__dirname + '/views/index.html');
+// });
+
+app.get("/", function(request, response) {
+  response.render(__dirname + "views/index.ejs");
 });
 
 app.get("/checkout", function(request, response) {
-  ejs.render(__dirname + "/views/checkout.ejs", { name: "Tim" })
+  response.render(__dirname + "/views/checkout.ejs", { name: "Rob" })
 });
 
 // listen for requests :)
