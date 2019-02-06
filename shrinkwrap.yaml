@@ -1,6 +1,7 @@
 dependencies:
   ejs: 2.6.1
   express: 4.16.4
+  stripe: 6.23.1
 packages:
   /accepts/1.3.5:
     dependencies:
@@ -194,6 +195,10 @@ packages:
       node: '>= 0.10'
     resolution:
       integrity: sha1-6qM9bd16zo9/b+DJygRA5wZzix4=
+  /lodash.isplainobject/4.0.6:
+    dev: false
+    resolution:
+      integrity: sha1-fFJqUtibRcRcxpC4gWO+BJf1UMs=
   /media-typer/0.3.0:
     dev: false
     engines:
@@ -344,6 +349,16 @@ packages:
       node: '>= 0.6'
     resolution:
       integrity: sha1-Fhx9rBd2Wf2YEfQ3cfqZOBR4Yow=
+  /stripe/6.23.1:
+    dependencies:
+      lodash.isplainobject: 4.0.6
+      qs: 6.5.2
+      safe-buffer: 5.1.2
+    dev: false
+    engines:
+      node: '>=4'
+    resolution:
+      integrity: sha512-qIpDhTZXnfHP1TaRuyHXdQczvG1wTOgzqJPsTRb0GIrCL/NZQAgnf+ZDOuvq3fhRJW8VAluzlj4Dy1Nn3k7eNg==
   /type-is/1.6.16:
     dependencies:
       media-typer: 0.3.0
@@ -377,3 +392,4 @@ shrinkwrapVersion: 3
 specifiers:
   ejs: ^2.6.1
   express: ^4.16.4
+  stripe: ^6.23.1

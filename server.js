@@ -2,10 +2,11 @@
 // where your node app starts
 
 // init project
-const ejs = require("ejs");
 const express = require('express');
-const app = express();
+const ejs = require("ejs");
+const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY)
 
+const app = express();
 app.set('view engine', 'ejs');
 
 // we've started you off with Express, 
@@ -25,6 +26,17 @@ app.get("/", function(request, response) {
 
 app.get("/checkout", function(request, response) {
   response.render(__dirname + "/views/checkout.ejs", { name: "Rob" })
+});
+
+app.post("/charge", function(request, response) {
+  const token = request.body.stripeToken;
+  (async () => {
+    const charge = await stripe.charges.create({
+      amount: 999,
+      currency: 'usd',
+      description: 'example charge',
+      source: token
+    });
 });
 
 // listen for requests :)
