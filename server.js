@@ -12,7 +12,7 @@ app.set('view engine', 'ejs');
 // but feel free to use whatever libs or frameworks you'd like through `package.json`.
 
 // http://expressjs.com/en/starter/static-files.html
-// app.use(express.static('public'));
+app.use(express.static('public'));
 
 // http://expressjs.com/en/starter/basic-routing.html
 // app.get('/', function(request, response) {
@@ -20,7 +20,7 @@ app.set('view engine', 'ejs');
 // });
 
 app.get("/", function(request, response) {
-  response.render(__dirname + "views/index.ejs");
+  response.render(__dirname + "/views/index.ejs");
 });
 
 app.get("/checkout", function(request, response) {
