@@ -9,8 +9,9 @@ const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY)
 const app = express();
 app.set('view engine', 'ejs');
 
-// we've started you off with Express, 
-// but feel free to use whatever libs or frameworks you'd like through `package.json`.
+app.configure(function() {
+  app.use(express.bodyParser());
+});
 
 // http://expressjs.com/en/starter/static-files.html
 app.use(express.static('public'));
