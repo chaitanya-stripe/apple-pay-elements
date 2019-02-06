@@ -37,6 +37,7 @@ app.post("/charge", function(request, response) {
       description: 'example charge',
       source: token
     });
+  });
 });
 
 // listen for requests :)
