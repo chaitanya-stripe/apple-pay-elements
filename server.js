@@ -8,6 +8,8 @@ const ejs = require("ejs");
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY)
 const sgMail = require('@sendgrid/mail');
 
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+
 const app = express();
 app.set('view engine', 'ejs');
 
@@ -66,9 +68,8 @@ app.post("/webhooks", function(request, response) {
     const customerEmailAddress = source.owner.email
     console.log(customerEmailAddress)
     
-    sgMail.setApiKey(process.env.SENDGRID_API_KEY);
     const msg = {
-      to: 'customerEmailAddress',
+      to: customerEmailAddress,
       from: 'test@example.com',
       subject: 'Thanks for buying a MacGuffin',
       text: `We hope you like your new MacGuffin. https://dashboard.stripe.com/test/payments/${intentId}`,
