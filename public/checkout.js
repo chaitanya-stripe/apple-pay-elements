@@ -42,17 +42,27 @@ card.addEventListener('change', function(event) {
 });
 
 // Handle form submission.
-const cardholderName = document.getElementById('cardholder-name').value;
+const cardholderName = document.getElementById('cardholder-name');
 const form = document.getElementById('payment-form');
 const clientSecret = form.dataset.secret;
 
 form.addEventListener('submit', function(event) {
   event.preventDefault();
 
-  stripe.handleCardPayment(
-    clientSecret, card, {
-    
+  stripe.handleCardPayment(clientSecret, card, {
+    source_data: {
+      owner: {
+        name: cardholderName.value
+      }
     }
-  )
+  }, function(err, resp) {
+    if (err) {
+      console.log("something went wrong", err)
+    }
+    else {
+      alert("success")
+      console.log("success", resp)
+    }
+  })
 });
 

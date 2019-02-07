@@ -38,11 +38,11 @@
         <div class="col-md-8 order-md-1">
           <h4 class="mb-3">Payment</h4>
           
-          <form action="/charge" method="post" id="payment-form" data-secret="<%= intent.client_secret %>">
+          <form action="/charge" method="post" id="payment-form" data-secret="<%= intent.clientSecret %>">
           
             <div class="row">
               <div class="col-md-12">
-                <input type="text" class="form-control" id="cc-name" placeholder="Name on Card">
+                <input type="text" class="form-control" id="cardholder-name" placeholder="Name on Card">
               </div>
             </div>
             
