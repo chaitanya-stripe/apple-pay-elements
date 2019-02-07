@@ -37,18 +37,17 @@
         </div>
         <div class="col-md-8 order-md-1">
           <h4 class="mb-3">Payment</h4>
-
           
-          <div class="row">
-            <div class="col-md-12">
-              <input type="text" class="form-control" id="cc-name" placeholder="Name on Card" required>
+          <form action="/charge" method="post" id="payment-form" data-secret="<%= intent.client_secret %>">
+          
+            <div class="row">
+              <div class="col-md-12">
+                <input type="text" class="form-control" id="cc-name" placeholder="Name on Card">
+              </div>
             </div>
-          </div>
-          
-          <br>
-          
-          <form action="/charge" method="post" id="payment-form">
-
+            
+            <br>
+            
             <div class="row">
               <div class="col-md-12">
                  <div id="card-element">
@@ -60,7 +59,7 @@
             </div>
             
             <hr class="mb-4">
-            <button class="btn btn-primary btn-lg btn-block" data-secret="<%= intent.client_secret %>" type="submit">Pay Now</button>
+            <button class="btn btn-primary btn-lg btn-block" type="submit">Pay Now</button>
           </form>
         </div>
       </div>
