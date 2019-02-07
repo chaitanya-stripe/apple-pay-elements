@@ -38,13 +38,19 @@ app.get("/checkout", function(request, response) {
       intent: { 
         id: intent.id,
         clientSecret: intent.client_secret,
+        status: intent.status
       }
     })
   })
 });
 
 app.get("/success", function(request, response) {
-
+  response.render(__dirname + "/views/success.ejs", {
+    intent: {
+      id: request.query.id,
+      status: request.query.status,
+    }
+  })
 })
 
 app.post("/charge", function(request, response) {
@@ -63,6 +69,7 @@ app.post("/charge", function(request, response) {
 
 app.post("/webhooks", function(request, response) {
   response.send(200)
+  console.log("OMG we caught a webhook")
 })
 
 // listen for requests :)
