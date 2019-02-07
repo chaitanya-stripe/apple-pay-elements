@@ -6,6 +6,7 @@ const express = require('express');
 const bodyParser = require('body-parser')
 const ejs = require("ejs");
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY)
+const sgMail = require('@sendgrid/mail');
 
 const app = express();
 app.set('view engine', 'ejs');
@@ -56,12 +57,24 @@ app.get("/success", function(request, response) {
 app.post("/webhooks", function(request, response) {
   response.sendStatus(200);
   
+  console.log(request.body)
+  
   const intentId = request.body.id
   const sourceId = request.body.data.object.source
   
   stripe.sources.retrieve(sourceId, function(err, source) {
-    const emailAddress = source.owner.email
-    console.log(emailAddress)
+    const customerEmailAddress = source.owner.email
+    console.log(customerEmailAddress)
+    
+    sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+    const msg = {
+      to: 'customerEmailAddress',
+      from: 'test@example.com',
+      subject: 'Thanks for buying a MacGuffin',
+      text: `We hope you like your new MacGuffin. https://dashboard.stripe.com/test/payments/${intentId}`,
+      html: `<p>We hope you like your new MacGuffin. <a href="https://dashboard.stripe.com/test/payments/${intentId}">Dashboard</a></p>`,
+    };
+    sgMail.send(msg);
   });
 })
 
