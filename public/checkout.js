@@ -57,11 +57,11 @@ form.addEventListener('submit', function(event) {
     }
   }).then(function(result) {
     if (result.error) {
-      console.log("something went wrong", result.error)
+      console.error("something went wrong", result.error)
     }
     else {
-      alert("success")
-      console.log("success", result)
+      console.log("success!", result);
+      window.open(`/success?id=${result.id}&status=${result.status}`);
     }
   })
 });

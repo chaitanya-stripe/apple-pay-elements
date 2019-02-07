@@ -5,9 +5,7 @@
     <div class="container">
       
       <br>
-      <div class="alert alert-success" role="alert">
-        <span>Payment Intent Created: <a href="https://dashboard.stripe.com/test/payments/<%= intent.id %>"><%= intent.id %></a></span>
-      </div> 
+      <%- include('partials/pi_alert') %>
       
       <div class="py-5 text-center">
         <h2>Checkout form</h2>

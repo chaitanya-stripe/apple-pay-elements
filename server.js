@@ -68,7 +68,7 @@ app.post("/charge", function(request, response) {
 });
 
 app.post("/webhooks", function(request, response) {
-  response.send(200)
+  response.sendStatus(200)
   console.log("OMG we caught a webhook")
 })
 
