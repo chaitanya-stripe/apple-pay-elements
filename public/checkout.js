@@ -62,9 +62,9 @@ form.addEventListener('submit', function(event) {
       console.error("something went wrong", result.error)
     }
     else {
-      console.log("success!", result);
-      // const redirectUrl = `/success?id=${result.paymentIntent.id}&status=${result.paymentIntent.status}`
-      // window.location.href = redirectUrl;
+      // console.log("success!", result);
+      const redirectUrl = `/success?id=${result.paymentIntent.id}&status=${result.paymentIntent.status}`
+      window.location.href = redirectUrl;
     }
   })
 });
