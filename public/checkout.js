@@ -55,13 +55,13 @@ form.addEventListener('submit', function(event) {
         name: cardholderName.value
       }
     }
-  }, function(err, resp) {
-    if (err) {
-      console.log("something went wrong", err)
+  }).then(function(result) {
+    if (result.error) {
+      console.log("something went wrong", result.error)
     }
     else {
       alert("success")
-      console.log("success", resp)
+      console.log("success", result)
     }
   })
 });
