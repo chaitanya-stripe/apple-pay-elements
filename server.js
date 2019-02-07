@@ -54,9 +54,15 @@ app.get("/success", function(request, response) {
 })
 
 app.post("/webhooks", function(request, response) {
-  response.sendStatus(200)
-  console.log("OMG we caught a webhook")
-  console.log(response)
+  response.sendStatus(200);
+  
+  const intentId = request.body.id
+  const sourceId = request.body.data.object.source
+  
+  stripe.sources.retrieve(sourceId, function(err, source) {
+    const emailAddress = source.owner.email
+    console.log(emailAddress)
+  });
 })
 
 // listen for requests :)
