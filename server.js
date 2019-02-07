@@ -43,6 +43,10 @@ app.get("/checkout", function(request, response) {
   })
 });
 
+app.get("/success", function(request, response) {
+
+})
+
 app.post("/charge", function(request, response) {
   console.log(request.body)
   const token = request.body.stripeToken;
@@ -56,6 +60,10 @@ app.post("/charge", function(request, response) {
     console.log(charge);
   });
 });
+
+app.post("/webhooks", function(request, response) {
+  response.send(200)
+})
 
 // listen for requests :)
 const listener = app.listen(process.env.PORT, function() {
