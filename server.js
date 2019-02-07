@@ -66,7 +66,10 @@ app.post("/webhooks", function(request, response) {
   
   stripe.sources.retrieve(sourceId, function(err, source) {
     const customerEmailAddress = source.owner.email
-    console.log(customerEmailAddress)
+    
+    // Track your sale, create shipping labels, and do other business things here...
+    
+    console.log("Sending email confirmation to ", customerEmailAddress)
     
     const msg = {
       to: customerEmailAddress,
