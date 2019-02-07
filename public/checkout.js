@@ -43,6 +43,7 @@ card.addEventListener('change', function(event) {
 
 // Handle form submission.
 const cardholderName = document.getElementById('cardholder-name');
+const cardholderEmail = document.getElementById('cardholder-email');
 const form = document.getElementById('payment-form');
 const clientSecret = form.dataset.secret;
 
@@ -52,7 +53,8 @@ form.addEventListener('submit', function(event) {
   stripe.handleCardPayment(clientSecret, card, {
     source_data: {
       owner: {
-        name: cardholderName.value
+        name: cardholderName.value,
+        email: cardholderEmail.value,
       }
     }
   }).then(function(result) {
@@ -60,9 +62,9 @@ form.addEventListener('submit', function(event) {
       console.error("something went wrong", result.error)
     }
     else {
-      // console.log("success!", result);
-      const redirectUrl = `/success?id=${result.paymentIntent.id}&status=${result.paymentIntent.status}`
-      window.location.href = redirectUrl;
+      console.log("success!", result);
+      // const redirectUrl = `/success?id=${result.paymentIntent.id}&status=${result.paymentIntent.status}`
+      // window.location.href = redirectUrl;
     }
   })
 });

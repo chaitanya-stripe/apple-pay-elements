@@ -53,23 +53,10 @@ app.get("/success", function(request, response) {
   })
 })
 
-app.post("/charge", function(request, response) {
-  console.log(request.body)
-  const token = request.body.stripeToken;
-  
-  stripe.charges.create({
-    amount: 999,
-    currency: 'usd',
-    description: 'example charge',
-    source: token
-  }, function(err, charge) {
-    console.log(charge);
-  });
-});
-
 app.post("/webhooks", function(request, response) {
   response.sendStatus(200)
   console.log("OMG we caught a webhook")
+  console.log(response)
 })
 
 // listen for requests :)

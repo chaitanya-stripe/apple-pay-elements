@@ -38,9 +38,18 @@
           
           <form action="/charge" method="post" id="payment-form" data-secret="<%= intent.clientSecret %>">
           
+                      
             <div class="row">
               <div class="col-md-12">
-                <input type="text" class="form-control" id="cardholder-name" placeholder="Name on Card">
+                <input type="text" class="form-control" id="cardholder-name" placeholder="Tommy Thompson">
+              </div>
+            </div>
+            
+            <br>
+            
+            <div class="row">
+              <div class="col-md-12">
+                <input type="text" class="form-control" id="cardholder-email" placeholder="tom@example.com">
               </div>
             </div>
             
