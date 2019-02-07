@@ -6,7 +6,7 @@
       
       <br>
       <div class="alert alert-success" role="alert">
-        <span>Payment Intent Created: pi_1E10o6ERA7UT3iwdX5mi39km</span>
+        <span>Payment Intent Created: <a href="https://dashboard.stripe.com/test/payments/<%= intent.id %>"><%= intent.id %></a></span>
       </div> 
       
       <div class="py-5 text-center">
@@ -51,7 +51,7 @@
             </div>
             
             <hr class="mb-4">
-            <button class="btn btn-primary btn-lg btn-block" type="submit">Pay Now</button>
+            <button class="btn btn-primary btn-lg btn-block" data-secret="<%= intent.client_secret %>" type="submit">Pay Now</button>
           </form>
         </div>
       </div>

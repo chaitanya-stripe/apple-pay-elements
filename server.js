@@ -28,7 +28,19 @@ app.get("/", function(request, response) {
 });
 
 app.get("/checkout", function(request, response) {
-  response.render(__dirname + "/views/checkout.ejs", { name: "Rob" })
+  stripe.paymentIntents.create({
+    // In practice you would calculate this based on what's in the cart
+    amount: 1999,
+    currency: 'eur',
+    allowed_source_types: ['card'],
+  }, function(err, intent) {
+    response.render(__dirname + "/views/checkout.ejs", {
+      intent: { 
+        id: intent.id,
+        clientSecret: intent.client_secret,
+      }
+    })
+  })
 });
 
 app.post("/charge", function(request, response) {
