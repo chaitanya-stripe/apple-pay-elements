@@ -59,7 +59,7 @@ form.addEventListener('submit', function(event) {
   }).then(function(result) {
     if (result.error) {
       console.error("Something went wrong:", result.error)
-      document.getElementById('card-errors').textContent = `Something went wrong: ${result.error.message}`;
+      document.getElementById('card-errors').textContent = result.error.message;
     }
     else {
       // console.log("success!", result);
