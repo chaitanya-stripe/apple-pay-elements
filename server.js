@@ -38,8 +38,8 @@ app.get("/checkout", function(request, response) {
         status: intent.status
       },
       STRIPE_PUBLISHABLE_KEY: process.env.STRIPE_PUBLISHABLE_KEY
-    })
-  })
+    });
+  });
 });
 
 app.get("/success", function(request, response) {
@@ -48,8 +48,8 @@ app.get("/success", function(request, response) {
       id: request.query.id,
       status: request.query.status,
     }
-  })
-})
+  });
+});
 
 app.post("/webhooks", function(request, response) {
   response.sendStatus(200);
@@ -83,8 +83,8 @@ app.post("/webhooks", function(request, response) {
   else {
     // handle a failure
     console.error("PaymentIntent did not succeed!", intentId)
-  }   
-})
+  }
+});
 
 // listen for requests :)
 const listener = app.listen(process.env.PORT, function() {
