@@ -1,5 +1,5 @@
 // Create a Stripe client.
-var stripe = Stripe('pk_test_ZicLw9aAjw9hojXl1HfY3hsS', {
+var stripe = Stripe(keys.env.STRIPE_PUBLISHABLE_KEY, {
   betas: ['payment_intent_beta_3']
 });
 
