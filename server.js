@@ -36,7 +36,8 @@ app.get("/checkout", function(request, response) {
         id: intent.id,
         clientSecret: intent.client_secret,
         status: intent.status
-      }
+      },
+      STRIPE_PUBLISHABLE_KEY: process.env.STRIPE_PUBLISHABLE_KEY
     })
   })
 });
