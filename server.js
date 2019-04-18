@@ -39,7 +39,18 @@ app.get("/success", function(request, response) {
   });
 });
 
-app.post('/ajax/confirm_payment', async (request, response) => {
+app.post('/charge', async (request, response) => {
+  try {
+    
+  }
+  const charge = await stripe.charges.create({
+    source: request.body.stripeToken,
+    amount: 1099,
+    currency: 'usd',
+  })
+  
+  
+  
   try {
     let intent;
     if (request.body.payment_method_id) {
