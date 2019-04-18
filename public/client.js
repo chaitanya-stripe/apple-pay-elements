@@ -103,7 +103,8 @@ function handleServerResponse(response) {
       else {
         fetch('/ajax/confirm_payment', {
           method: 'POST',
-          headers: { },
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ payment_intent_id: result.paymentIntent.id })
         }).then(function(confirmResult) {
           return confirmResult.json()
         }).then(handleServerResponse)
