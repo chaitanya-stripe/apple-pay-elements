@@ -44,6 +44,7 @@ card.addEventListener('change', function(event) {
 const form = document.getElementById('payment-form');
 
 form.addEventListener('submit', function(event) {
+  // `event.preventDefault()` lets us handle the request manually
   event.preventDefault();
   
   stripe.createToken(card).then(function(result) {
@@ -57,8 +58,13 @@ form.addEventListener('submit', function(event) {
       }),
     }).then(function(result) {
       result.json().then(function(json) {
-        window.location.href = `/success?id=${json.payment_id}`
+        handleServerResponse(json)
       })
     })
   })
 })
+
+function handleServerResponse(response) {
+  // Redirect to success page
+  window.location.href = `/success?id=${response.payment_id}`
+}
