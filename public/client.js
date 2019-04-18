@@ -58,57 +58,8 @@ form.addEventListener('submit', function(event) {
       body: JSON.stringify({ payment_method_id: result.paymentMethod.id }),
     }).then(function(result) {
       result.json().then(function(json) {
-        handleServerResponse(json)
+        window.location.href = '/success'
       })
     })
   })
-
-  // stripe.handleCardPayment(clientSecret, card, {
-  //   source_data: {
-  //     owner: {
-  //       name: cardholderName.value,
-  //       email: cardholderEmail.value,
-  //     }
-  //   }
-  // }).then(function(result) {
-  //   if (result.error) {
-  //     console.error("Something went wrong:", result.error)
-  //     document.getElementById('card-errors').textContent = result.error.message;
-  //   }
-  //   else {
-  //     // console.log("success!", result);
-  //     const redirectUrl = `/success?id=${result.paymentIntent.id}&status=${result.paymentIntent.status}`
-  //     window.location.href = redirectUrl;
-  //   }
-  // })
-});
-
-function handleServerResponse(response) {
-  if (response.error) {
-    // Show error from your server in payment form
-    console.log(response.error)
-  }
-  else if (response.requires_action) {
-    stripe.handleCardAction(
-      response.payment_intent_client_secret
-    ).then(function(result) {
-      if (result.error) {
-        // Show Stripe error from PaymentIntent in payment form
-        console.log(result.error)
-      }
-      else {
-        fetch('/ajax/confirm_payment', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ payment_intent_id: result.paymentIntent.id })
-        }).then(function(confirmResult) {
-          return confirmResult.json()
-        }).then(handleServerResponse)
-      }
-    })
-  }
-  else {
-    // Redirect to the success page
-    alert('success')
-  }
-}
+})
