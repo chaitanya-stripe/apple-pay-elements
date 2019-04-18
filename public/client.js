@@ -48,6 +48,20 @@ const clientSecret = form.dataset.secret;
 
 form.addEventListener('submit', function(event) {
   event.preventDefault();
+  
+  stripe.createPaymentMethod('card', cardElement).then(function(result) {
+    if (result.error) {
+      // Show error in payment form
+      console.log(result.error)
+    }
+    else {
+      fetch('/ajax/confirm_payment', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({  }),
+      })
+    }
+  })
 
   stripe.handleCardPayment(clientSecret, card, {
     source_data: {
