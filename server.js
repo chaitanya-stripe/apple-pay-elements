@@ -39,6 +39,34 @@ app.get("/success", function(request, response) {
   });
 });
 
+app.post('/ajax/confirm_payment', async (request, response) => {
+  try {
+    let intent;
+    if (request.body.payment_method_id) {
+      // Create the PaymentIntent
+      intent = await stripe.paymentIntents.create({
+        payment_method: request.body.payment_method_id,
+        amount: 1099,
+        currency: 'usd',
+        confirmation_method: 'manual',
+        confirm: true,
+      })
+    }
+    else if (request.body.payment_intent_id) {
+      intent = await stripe.paymentIntents.confirm(
+        request.body.payment_intent_id
+      )
+    }
+    
+    // Send the response to the client
+    response.send(generate_payment_response(intent))
+  }
+  catch (e) {
+    // Display error on client
+    return response.send({ error: e.message
+  }
+})
+
 // app.post("/webhooks", function(request, response) {
 //   response.sendStatus(200);
   
