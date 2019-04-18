@@ -51,7 +51,7 @@ form.addEventListener('submit', function(event) {
   
   stripe.createPaymentMethod('card', cardElement).then(function(result) {
     if (result.error) {
-      // Show error from Stripe in payment form
+      // Show Stripe error from PaymentMethod in payment form
       console.log(result.error)
     }
     else {
@@ -92,5 +92,25 @@ function handleServerResponse(response) {
     // Show error from your server in payment form
     console.log(response.error)
   }
-  
+  else if (response.requires_action) {
+    stripe.handleCardAction(
+      response.payment_intent_client_secret
+    ).then(function(result) {
+      if (result.error) {
+        // Show Stripe error from PaymentIntent in payment form
+        console.log(result.error)
+      }
+      else {
+        fetch('/ajax/confirm_payment', {
+          method: 'POST',
+          headers: { },
+        }).then(function(confirmResult) {
+          return confirmResult.json()
+        }).then(handleServerResponse)
+      }
+    })
+  }
+  else {
+    // Redirect to the success page
+  }
 }
