@@ -46,17 +46,13 @@ const form = document.getElementById('payment-form');
 form.addEventListener('submit', function(event) {
   event.preventDefault();
   
-  // CO: createToken -> createPaymentMethod
   stripe.createToken(card).then(function(result) {
     
-    console.log('token', result.token.id)
-    
-    // Send the Card Token to your server
-    fetch('/charges', {
+    // Send the chargeable thing to your server
+    fetch('/process_payment', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        // CO: token* -> paymentMethod*
         token_id: result.token.id
       }),
     }).then(function(result) {

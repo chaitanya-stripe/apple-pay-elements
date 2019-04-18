@@ -36,7 +36,7 @@ app.get("/success", function(request, response) {
   })
 })
 
-app.post('/charges', async (request, response) => {
+app.post('/process_payment', async (request, response) => {
   const charge = await stripe.charges.create({
     source: request.body.token_id,
     amount: 1999,
