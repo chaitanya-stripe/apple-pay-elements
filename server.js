@@ -47,7 +47,7 @@ app.post('/charges', async (request, response) => {
   })
 
   // Send the response to the client
-  response.send({ success: true, charge_id: charge.id })
+  await response.send({ success: true, charge_id: charge.id })
 })
 
 // listen for requests
