@@ -1,7 +1,5 @@
 // Create a Stripe client.
-const stripe = Stripe(STRIPE_PUBLISHABLE_KEY, {
-  betas: ['payment_intent_beta_3']
-});
+const stripe = Stripe(STRIPE_PUBLISHABLE_KEY);
 
 // Create an instance of Elements.
 const elements = stripe.elements();
@@ -44,18 +42,20 @@ card.addEventListener('change', function(event) {
 // const cardholderName = document.getElementById('cardholder-name');
 // const cardholderEmail = document.getElementById('cardholder-email');
 const form = document.getElementById('payment-form');
-// const clientSecret = form.dataset.secret;
 
 form.addEventListener('submit', function(event) {
   event.preventDefault();
   
   // CO: createToken -> createPaymentMethod
-  stripe.createToken('card', card).then(function(result) {
+  stripe.createToken(card).then(function(result) {
     // Send the Card Token to your server
     fetch('/charges', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ payment_method_id: result.paymentMethod.id }),
+      body: JSON.stringify({
+        // CO: token* -> paymentMethod*
+        token_id: result.id
+      }),
     }).then(function(result) {
       result.json().then(function(json) {
         window.location.href = '/success'

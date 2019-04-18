@@ -47,10 +47,10 @@ app.post('/charge', async (request, response) => {
   })
 
   // Send the response to the client
-  response.send({ success: true })
+  response.send({ success: true, charge_id: charge.id })
 })
 
-// listen for requests :)
+// listen for requests
 const listener = app.listen(process.env.PORT, function() {
   console.log('Your app is listening on port ' + listener.address().port);
 });
