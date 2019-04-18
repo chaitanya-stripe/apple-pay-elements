@@ -39,7 +39,7 @@ app.get("/success", function(request, response) {
   });
 });
 
-app.post('/charge', async (request, response) => {
+app.post('/charges', async (request, response) => {
   const charge = await stripe.charges.create({
     source: request.body.stripeToken,
     amount: 1999,
