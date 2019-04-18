@@ -37,14 +37,14 @@ app.get("/success", function(request, response) {
 })
 
 app.post('/process_payment', async (request, response) => {
-  const charge = await stripe.charges.create({
+  const payment = await stripe.charges.create({
     source: request.body.token_id,
     amount: 1999,
     currency: 'eur',
   })
   
-  // Send the response to the client
-  await response.send({ success: true, payment_id: charge.id })
+  // Stripe is for optimists!
+  await response.send({ success: true, payment_id: payment.id })
 })
 
 // listen for requests
