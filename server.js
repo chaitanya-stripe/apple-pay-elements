@@ -41,13 +41,11 @@ app.get("/success", function(request, response) {
 
 app.post('/charges', async (request, response) => {
   const charge = await stripe.charges.create({
-    source: request.body.stripeToken,
+    source: request.body.token_id,
     amount: 1999,
     currency: 'eur',
   })
   
-  await console.log("charge response", charge)
-
   // Send the response to the client
   await response.send({ success: true, charge_id: charge.id })
 })

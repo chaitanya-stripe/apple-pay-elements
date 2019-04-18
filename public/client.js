@@ -48,17 +48,20 @@ form.addEventListener('submit', function(event) {
   
   // CO: createToken -> createPaymentMethod
   stripe.createToken(card).then(function(result) {
+    
+    console.log('token', result.token.id)
+    
     // Send the Card Token to your server
     fetch('/charges', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         // CO: token* -> paymentMethod*
-        token_id: result.id
+        token_id: result.token.id
       }),
     }).then(function(result) {
       result.json().then(function(json) {
-        window.location.href = '/success'
+        window.location.href = `/success?id=${json.charge_id}`
       })
     })
   })
