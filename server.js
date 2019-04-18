@@ -45,6 +45,8 @@ app.post('/charges', async (request, response) => {
     amount: 1999,
     currency: 'eur',
   })
+  
+  await console.log("charge response", charge)
 
   // Send the response to the client
   await response.send({ success: true, charge_id: charge.id })
