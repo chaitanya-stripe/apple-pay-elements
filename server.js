@@ -32,12 +32,9 @@ app.get("/payment", function(request, response) {
 
 app.get("/success", function(request, response) {
   response.render(__dirname + "/views/success.ejs", {
-    intent: {
-      id: request.query.id,
-      status: request.query.status,
-    }
-  });
-});
+    payment_id: request.query.id,
+  })
+})
 
 app.post('/charges', async (request, response) => {
   const charge = await stripe.charges.create({
@@ -47,7 +44,7 @@ app.post('/charges', async (request, response) => {
   })
   
   // Send the response to the client
-  await response.send({ success: true, charge_id: charge.id })
+  await response.send({ success: true, payment_id: charge.id })
 })
 
 // listen for requests

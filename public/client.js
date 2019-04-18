@@ -61,7 +61,7 @@ form.addEventListener('submit', function(event) {
       }),
     }).then(function(result) {
       result.json().then(function(json) {
-        window.location.href = `/success?id=${json.charge_id}`
+        window.location.href = `/success?id=${json.payment_id}`
       })
     })
   })
