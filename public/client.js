@@ -40,16 +40,16 @@ card.addEventListener('change', function(event) {
   }
 });
 
-// Handle form submission.
-const cardholderName = document.getElementById('cardholder-name');
-const cardholderEmail = document.getElementById('cardholder-email');
-const form = document.getElementById('payment-form');
-const clientSecret = form.dataset.secret;
+// // Handle form submission.
+// const cardholderName = document.getElementById('cardholder-name');
+// const cardholderEmail = document.getElementById('cardholder-email');
+// const form = document.getElementById('payment-form');
+// const clientSecret = form.dataset.secret;
 
 form.addEventListener('submit', function(event) {
   event.preventDefault();
   
-  stripe.createPaymentMethod('card', cardElement).then(function(result) {
+  stripe.createPaymentMethod('card', card).then(function(result) {
     if (result.error) {
       // Show Stripe error from PaymentMethod in payment form
       console.log(result.error)
@@ -113,5 +113,6 @@ function handleServerResponse(response) {
   }
   else {
     // Redirect to the success page
+    alert('success')
   }
 }
