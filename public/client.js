@@ -49,22 +49,18 @@ const form = document.getElementById('payment-form');
 form.addEventListener('submit', function(event) {
   event.preventDefault();
   
-  stripe.createPaymentMethod('card', card).then(function(result) {
-    if (result.error) {
-      // Show Stripe error from PaymentMethod in payment form
-      console.log(result.error)
-    }
-    else {
-      fetch('/ajax/confirm_payment', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ payment_method_id: result.paymentMethod.id }),
-      }).then(function(result) {
-        result.json().then(function(json) {
-          handleServerResponse(json)
-        })
+  // CO: createToken -> createPaymentMethod
+  stripe.createToken('card', card).then(function(result) {
+    // Send the Card Token to your server
+    fetch('/charges', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ payment_method_id: result.paymentMethod.id }),
+    }).then(function(result) {
+      result.json().then(function(json) {
+        handleServerResponse(json)
       })
-    }
+    })
   })
 
   // stripe.handleCardPayment(clientSecret, card, {

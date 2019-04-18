@@ -40,42 +40,15 @@ app.get("/success", function(request, response) {
 });
 
 app.post('/charge', async (request, response) => {
-  try {
-    const charge = await stripe.charges.create({
-      source: request.body.stripeToken,
-      amount: 1999,
-      currency: 'eur',
-    })
-    
-    // Send the response to the client
-    response.send({ success: true })
-  }
-  catch (e) {
-    // Display error on client
-    return response.send({ error: e.message })    
-  }
-})
+  const charge = await stripe.charges.create({
+    source: request.body.stripeToken,
+    amount: 1999,
+    currency: 'eur',
+  })
 
-function generate_payment_response(intent) {
-  if (
-    intent.status === 'requires_action' &&
-    intent.next_action.type === 'use_stripe_sdk'
-  ) {
-    // Tell the client to handle the action
-    return {
-      requires_action: true,
-      payment_intent_client_secret: intent.client_secret,
-    }
-  } else if (intent.status === 'succeeded') {
-    // The payment didn't need any additional actions and completed!
-    // Handle your post-payment fullfillment / business logic
-    
-    return { success: true }
-  }
-  else {
-    // Invalid Status
-  }
-}
+  // Send the response to the client
+  response.send({ success: true })
+})
 
 // listen for requests :)
 const listener = app.listen(process.env.PORT, function() {
