@@ -41,40 +41,18 @@ app.get("/success", function(request, response) {
 
 app.post('/charge', async (request, response) => {
   try {
-    
-  }
-  const charge = await stripe.charges.create({
-    source: request.body.stripeToken,
-    amount: 1099,
-    currency: 'usd',
-  })
-  
-  
-  
-  try {
-    let intent;
-    if (request.body.payment_method_id) {
-      // Create the PaymentIntent
-      intent = await stripe.paymentIntents.create({
-        payment_method: request.body.payment_method_id,
-        amount: 1099,
-        currency: 'usd',
-        confirmation_method: 'manual',
-        confirm: true,
-      })
-    }
-    else if (request.body.payment_intent_id) {
-      intent = await stripe.paymentIntents.confirm(
-        request.body.payment_intent_id
-      )
-    }
+    const charge = await stripe.charges.create({
+      source: request.body.stripeToken,
+      amount: 1999,
+      currency: 'eur',
+    })
     
     // Send the response to the client
-    response.send(generate_payment_response(intent))
+    response.send({ success: true })
   }
   catch (e) {
     // Display error on client
-    return response.send({ error: e.message })
+    return response.send({ error: e.message })    
   }
 })
 
