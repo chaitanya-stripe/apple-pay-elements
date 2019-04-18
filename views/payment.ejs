@@ -3,10 +3,6 @@
   
   <body class="bg-light">
     <div class="container">
-      
-      <br>
-      <%- include('partials/pi_alert') %>
-      
       <div class="py-5 text-center">
         <h2>Checkout form</h2>
         <p class="lead">In pharetra, neque facilisis dictum rhoncus, velit erat tristique velit, a bibendum nunc dui quis felis. Nullam vitae ligula et velit blandit viverra. Morbi pharetra ut orci in ullamcorper. Praesent et condimentum tellus, et tempus ipsum. Maecenas dignissim aliquet justo.</p>
@@ -36,7 +32,7 @@
         <div class="col-md-8 order-md-1">
           <h4 class="mb-3">Payment</h4>
           
-          <form action="/charge" method="post" id="payment-form" data-secret="<%= intent.clientSecret %>">
+          <form action="/charge" method="post" id="payment-form">
           
                       
             <div class="row">
