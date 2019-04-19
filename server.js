@@ -57,7 +57,7 @@ app.post('/process_payment', async (request, response) => {
     response.send({
       // This line gets the PaymentIntent's ID if it exists, otherwise it get's
       // the Charge ID.
-      payment_id: (e.raw.payment_intent ? e.raw.payment_intent.id : e.raw.charge),
+      payment_id: e.raw.charge,
       payment_status: e.message,
     })
   }
