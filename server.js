@@ -55,16 +55,11 @@ app.post('/process_payment', async (request, response) => {
     })
   }
   catch (e) {
-    console.log('caught e', e)
-    
-    if (raw.payment_intent) {
-      response.send({
-      
-      })
-    }
     response.send({
-      payment_id: raw.payment_intent.id : raw.charge,
-      payment_status: raw.payment_intent.status,
+      // This line gets the PaymentIntent's ID if it exists, otherwise it get's
+      // the Charge ID.
+      payment_id: (e.raw.payment_intent ? e.raw.payment_intent.id : e.raw.charge),
+      payment_status: e.message,
     })
   }
   

@@ -8,7 +8,10 @@
       <%- include('partials/status') %>
       
       <h1>
-        Thanks for your purchase!
+        <%= payment_status === 'succeeded' ?
+          'Thanks for buying a MacGuffin!' :
+          'Oh no! Something went wrong.'
+        %>
       </h1>
       
     </div>
