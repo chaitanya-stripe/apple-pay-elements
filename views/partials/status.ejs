@@ -1,6 +1,6 @@
   <div class="alert alert-<%= payment_status === 'succeeded' ? 'success' : 'danger' %>" role="alert">
     <span>
       <a href="https://dashboard.stripe.com/test/payments/<%= payment_id %>"><%= payment_id %></a> 
-      has status <%= payment_status %>
+      -- <%= payment_status %>
     </span>
   </div>

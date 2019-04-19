@@ -55,7 +55,17 @@ app.post('/process_payment', async (request, response) => {
     })
   }
   catch (e) {
-    response.send({ payment_status: 'failed' })
+    console.log('caught e', e)
+    
+    if (raw.payment_intent) {
+      response.send({
+      
+      })
+    }
+    response.send({
+      payment_id: raw.payment_intent.id : raw.charge,
+      payment_status: raw.payment_intent.status,
+    })
   }
   
   console.log('sent response to server')
