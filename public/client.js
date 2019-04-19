@@ -54,7 +54,7 @@ form.addEventListener('submit', function(event) {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        token_id: result.token.id
+        token_id: result.token.id,
       }),
     }).then(function(result) {
       result.json().then(function(json) {
