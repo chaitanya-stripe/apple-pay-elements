@@ -20,12 +20,11 @@ app.use(bodyParser.json());
 
 app.use(express.static('public'));
 
-// app.get("/", function(request, response) {
-//   response.render(__dirname + "/views/index.ejs");
-// });
-
-// app.get("/payment", function(request, response) {
 app.get("/", function(request, response) {
+  response.render(__dirname + "/views/index.ejs");
+});
+
+app.get("/payment", function(request, response) {
   response.render(__dirname + "/views/payment.ejs", {
     STRIPE_PUBLISHABLE_KEY: process.env.STRIPE_PUBLISHABLE_KEY
   });
@@ -55,8 +54,6 @@ app.post('/process_payment', async (request, response) => {
   }
   catch (e) {
     response.send({
-      // This line gets the PaymentIntent's ID if it exists, otherwise it get's
-      // the Charge ID.
       payment_id: e.raw.charge,
       payment_status: e.message,
     })

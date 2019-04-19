@@ -38,9 +38,6 @@ card.addEventListener('change', function(event) {
   }
 });
 
-// // Handle form submission.
-// const cardholderName = document.getElementById('cardholder-name');
-// const cardholderEmail = document.getElementById('cardholder-email');
 const form = document.getElementById('payment-form');
 
 form.addEventListener('submit', function(event) {
