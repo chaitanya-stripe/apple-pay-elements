@@ -40,14 +40,13 @@ app.get("/success", function(request, response) {
 
 app.post('/process_payment', async (request, response) => {
   try {
-    console.log('about to call charges.create')
     const payment = await stripe.charges.create({
       source: request.body.token_id,
       amount: 1999,
       currency: 'eur',
     })
-
-    console.log('just called charges.create')
+    
+    // Perform logic to fulfill your order here
 
     response.send({
       payment_id: payment.id,
@@ -62,8 +61,6 @@ app.post('/process_payment', async (request, response) => {
       payment_status: e.message,
     })
   }
-  
-  console.log('sent response to server')
 })
 
 // listen for requests
