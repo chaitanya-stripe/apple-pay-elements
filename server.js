@@ -33,6 +33,7 @@ app.get("/payment", function(request, response) {
 app.get("/success", function(request, response) {
   response.render(__dirname + "/views/success.ejs", {
     payment_id: request.query.id,
+    payment_status: request.query.status,
   })
 })
 
@@ -43,8 +44,10 @@ app.post('/process_payment', async (request, response) => {
     currency: 'eur',
   })
   
-  // Stripe is for optimists!
-  await response.send({ success: true, payment_id: payment.id })
+  await response.send({
+    payment_id: payment.id,
+    payment_status: payment.status,
+  })
 })
 
 // listen for requests

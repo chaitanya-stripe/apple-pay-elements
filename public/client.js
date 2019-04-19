@@ -66,5 +66,6 @@ form.addEventListener('submit', function(event) {
 
 function handleServerResponse(response) {
   // Redirect to success page
-  window.location.href = `/success?id=${response.payment_id}`
+  window.location.href = 
+    `/success?id=${response.payment_id}&status=${response.payment_status}`
 }
