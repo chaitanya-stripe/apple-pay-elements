@@ -39,19 +39,24 @@ app.get("/success", function(request, response) {
 })
 
 app.post('/process_payment', async (request, response) => {
-  console.log('about to call charges.create')
-  const payment = await stripe.charges.create({
-    source: request.body.token_id,
-    amount: 1999,
-    currency: 'eur',
-  })
-  
-  console.log('just called charges.create')
-  
-  response.send({
-    payment_id: payment.id,
-    payment_status: payment.status,
-  })
+  try {
+    console.log('about to call charges.create')
+    const payment = await stripe.charges.create({
+      source: request.body.token_id,
+      amount: 1999,
+      currency: 'eur',
+    })
+
+    console.log('just called charges.create')
+
+    response.send({
+      payment_id: payment.id,
+      payment_status: payment.status,
+    })
+  }
+  catch (e) {
+    response.send({ payment_status: 'failed' })
+  }
   
   console.log('sent response to server')
 })
