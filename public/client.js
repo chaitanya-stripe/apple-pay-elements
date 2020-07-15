@@ -44,14 +44,14 @@ form.addEventListener('submit', function(event) {
   // `event.preventDefault()` lets us handle the request manually
   event.preventDefault();
   
-  stripe.createToken(card).then(function(result) {
+  stripe.createPaymentMethod('card', card).then(function(result) {
     
     // Send the chargeable thing to your server
     fetch('/process_payment', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        token_id: result.token.id,
+        payment_method_id: result.paymentMethod.id,
       }),
     }).then(function(result) {
       result.json().then(function(json) {

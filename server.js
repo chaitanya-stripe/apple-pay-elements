@@ -39,10 +39,12 @@ app.get("/success", function(request, response) {
 
 app.post('/process_payment', async (request, response) => {
   try {
-    const payment = await stripe.charges.create({
-      source: request.body.token_id,
-      amount: 1999,
+    const payment = await stripe.paymentIntents.create({
+      payment_method: request.body.payment_method_id,
+      amount: 299,
       currency: 'eur',
+      confirmation_method: 'manual',
+      confirm: true,
     })
     
     // Perform logic to fulfill your order here
@@ -54,7 +56,7 @@ app.post('/process_payment', async (request, response) => {
   }
   catch (e) {
     response.send({
-      payment_id: e.raw.charge,
+      payment_id: e.raw.payment_intent.id,
       payment_status: e.message,
     })
   }
