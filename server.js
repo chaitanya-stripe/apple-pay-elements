@@ -46,7 +46,7 @@ app.post('/process_payment', async (request, response) => {
           request_three_d_secure: 'any',
         },
       },
-      amount: 199,
+      amount: 166,
       currency: 'usd',
       confirmation_method: 'manual',
       confirm: true,
