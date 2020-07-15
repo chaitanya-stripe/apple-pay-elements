@@ -41,12 +41,16 @@ app.post('/process_payment', async (request, response) => {
   try {
     const payment = await stripe.paymentIntents.create({
       payment_method: request.body.payment_method_id,
+      payment_method_options: {
+        card: {
+          request_three_d_secure: 'any',
+        },
+      },
       amount: 199,
       currency: 'usd',
       confirmation_method: 'manual',
       confirm: true,
     })
-    
     // Perform logic to fulfill your order here
     response.send(
       generate_payment_response(payment)
@@ -59,6 +63,7 @@ app.post('/process_payment', async (request, response) => {
     })
   }
 })
+
 
 app.post('/confirm_payment', async (request, response) => {
   try {
