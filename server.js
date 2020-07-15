@@ -48,11 +48,9 @@ app.post('/process_payment', async (request, response) => {
     })
     
     // Perform logic to fulfill your order here
-
-    response.send({
-      payment_id: payment.id,
-      payment_status: payment.status,
-    })
+    response.send(
+      generate_payment_response(payment)
+    )
   }
   catch (e) {
     response.send({
@@ -61,6 +59,52 @@ app.post('/process_payment', async (request, response) => {
     })
   }
 })
+
+app.post('/confirm_payment', async (request, response) => {
+  try {
+    const payment = await stripe.paymentIntents.confirm(
+      request.body.payment_intent_id,
+    )
+ 
+    response.send(generate_payment_response(payment))
+  }
+  catch (e) {
+    response.send({
+      payment_id: e.raw.payment_intent.id,
+      payment_status: e.message,
+    })
+  }
+})
+
+
+function generate_payment_response(intent) {
+  if (
+    (intent.status === 'requires_action' || intent.status === 'requires_source_action') &&
+    intent.next_action.type === 'use_stripe_sdk'
+  ) {
+    // Tell the client to handle the action (e.g., do 3DS)
+    return {
+      requires_action: true,
+      payment_intent_client_secret: intent.client_secret,
+    }
+  }
+  // In the previous version, we just *assumed* that the status
+  // was 'succeeded'.
+  else if (intent.status === 'succeeded') {
+    // Handle your post-payment fullfillment / business logic here
+     
+    return {
+      payment_id: intent.id,
+      payment_status: intent.status
+    }
+  }
+  else {
+    console.log(
+      'Invalid status, update your API version: ' +
+      'https://dashboard.stripe.com/test/developers'
+    )
+  }
+}
 
 // listen for requests
 const listener = app.listen(process.env.PORT, function() {

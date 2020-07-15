@@ -62,7 +62,31 @@ form.addEventListener('submit', function(event) {
 })
 
 function handleServerResponse(response) {
-  // Redirect to success page
-  window.location.href = 
-    `/success?id=${response.payment_id}&status=${response.payment_status}`
+  if (response.error) {
+    // Show error from your server in payment form
+    console.log(response.error)
+  }
+  else if (response.requires_action) {
+    stripe.handleCardAction(
+      response.payment_intent_client_secret
+    ).then(function(result) {
+      fetch('/confirm_payment', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          payment_intent_id:
+            result.error ?
+              result.error.payment_intent.id :
+              result.paymentIntent.id
+        }),
+      }).then(function(confirmResult) {
+        return confirmResult.json()
+      }).then(handleServerResponse)
+    })
+  }
+  else {
+    // Redirect to success page
+    window.location.href =
+      `/success?id=${response.payment_id}&status=${response.payment_status}`
+  }
 }
