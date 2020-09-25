@@ -44,7 +44,16 @@ form.addEventListener('submit', function(event) {
   // `event.preventDefault()` lets us handle the request manually
   event.preventDefault();
   
-  stripe.createPaymentMethod('card', card).then(function(result) {
+  stripe.createPaymentMethod('card', card, {
+      billing_details: {
+        address: {
+          line1: '2500 S LAKE PARK BLVD',
+          city: 'WEST VALLEY CITY',
+          postal_code: '84120-8218',
+          state: 'CA',
+        },
+      }
+    }).then(function(result) {
     
     // Send the chargeable thing to your server
     fetch('/process_payment', {
