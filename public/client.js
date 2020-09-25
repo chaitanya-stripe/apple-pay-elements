@@ -50,7 +50,7 @@ form.addEventListener('submit', function(event) {
           line1: '2500 S LAKE PARK BLVD',
           city: 'WEST VALLEY CITY',
           postal_code: '84120-8218',
-          state: 'CA',
+          state: 'UT',
         },
       }
     }).then(function(result) {
