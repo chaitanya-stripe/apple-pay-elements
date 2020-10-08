@@ -60,7 +60,7 @@ form.addEventListener('submit', function(event) {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        payment_method_id: result.paymentMethod.id,
+        payment_method_id: result.paymentMethod,
       }),
     }).then(function(result) {
       result.json().then(function(json) {
