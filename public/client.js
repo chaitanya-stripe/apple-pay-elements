@@ -44,23 +44,14 @@ form.addEventListener('submit', function(event) {
   // `event.preventDefault()` lets us handle the request manually
   event.preventDefault();
   
-  stripe.createPaymentMethod('card', card, {
-      billing_details: {
-        address: {
-          line1: '2500 S LAKE PARK BLVD',
-          city: 'WEST VALLEY CITY',
-          postal_code: '84120-8218',
-          state: 'UT',
-        },
-      }
-    }).then(function(result) {
+  stripe.createPaymentMethod('card', card).then(function(result) {
     
     // Send the chargeable thing to your server
     fetch('/process_payment', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        payment_method_id: result.paymentMethod,
+        payment_method_id: result.paymentMethod.id,
       }),
     }).then(function(result) {
       result.json().then(function(json) {
