@@ -40,13 +40,14 @@ app.get("/success", function(request, response) {
 app.post('/process_payment', async (request, response) => {
   try {
     const payment = await stripe.paymentIntents.create({
+      // customer: 'cu_1Ha4FLLGHh7VlXNwiTWAfpRh',
       payment_method: request.body.payment_method_id,
       payment_method_options: {
         card: {
           request_three_d_secure: 'any',
         },
       },
-      amount: 112,
+      amount: 7200,
       currency: 'usd',
       confirmation_method: 'manual',
       confirm: true,
