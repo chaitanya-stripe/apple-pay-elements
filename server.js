@@ -40,7 +40,7 @@ app.get("/success", function(request, response) {
 app.post('/process_payment', async (request, response) => {
   try {
     const payment = await stripe.paymentIntents.create({
-      customer: 'cu_1Ha4FLLGHh7VlXNwiTWAfpRh',
+      // customer: 'cu_1Ha4FLLGHh7VlXNwiTWAfpRh',
       payment_method: request.body.payment_method_id,
       payment_method_options: {
         card: {
