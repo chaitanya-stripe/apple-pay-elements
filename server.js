@@ -48,7 +48,7 @@ app.post('/process_payment', async (request, response) => {
         },
       },
       amount: 5400,
-      currency: 'usd',
+      currency: 'eur',
       confirmation_method: 'manual',
       confirm: true,
     })
