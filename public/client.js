@@ -22,6 +22,19 @@ const style = {
   }
 };
 
+// Create a payment request detail page
+var paymentRequest = stripe.paymentRequest({
+  country: 'US',
+  currency: 'usd',
+  total: {
+    label: 'Demo total',
+    amount: 1099,
+  },
+  requestPayerName: true,
+  requestPayerEmail: true,
+});
+
+
 // Create an instance of the card Element.
 const card = elements.create('card', {style: style});
 
