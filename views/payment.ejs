@@ -38,6 +38,16 @@
             
             <div class="row">
               <div class="col-md-12">
+                 <div id="payment-request-element">
+                  <!-- A Stripe Element will be inserted here. -->
+                </div>
+                <!-- Used to display form errors. -->
+                <div id="payment-request-errors" role="alert"></div>
+              </div>
+            </div>
+          
+            <div class="row">
+              <div class="col-md-12">
                  <div id="card-element">
                   <!-- A Stripe Element will be inserted here. -->
                 </div>
@@ -63,7 +73,7 @@
     </div>
     
     <script>
-      const STRIPE_PUBLISHABLE_KEY = "<%= STRIPE_PUBLISHABLE_KEY %>";
+      const STRIPE_PUBLISHABLE_KEY = "pk_test_428DT589O8KAxCGbLmxyZL83XLvw8diZvutZNg26Qt0gCdIRNjZluYbT30bpJ7yE2hzUVBtUOIjfyJAeS93NwCmZk00YSgd16wM";
     </script>
     
     <script src="https://js.stripe.com/v3/"></script>
