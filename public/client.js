@@ -1,5 +1,5 @@
 // Create a Stripe client.
-const stripe = Stripe('pk_test_428DT589O8KAxCGbLmxyZL83XLvw8diZvutZNg26Qt0gCdIRNjZluYbT30bpJ7yE2hzUVBtUOIjfyJAeS93NwCmZk00YSgd16wM');
+const stripe = Stripe('pk_live_kOjWJ9FLcGpkxNlwIIsjLPgX');
 
 // Create an instance of Elements.
 const elements = stripe.elements();
@@ -33,12 +33,6 @@ var paymentRequest = stripe.paymentRequest({
   requestPayerName: true,
   requestPayerEmail: true,
 });
-var prButton = elements.create('paymentRequestButton', {
-  paymentRequest: paymentRequest,
-});
-
-// Add an instance of payment request into the 'payment-request-element' <div>.
-prButton.mount('#payment-request-element');
 
 // Create an instance of the card Element.
 const card = elements.create('card', {style: style});
