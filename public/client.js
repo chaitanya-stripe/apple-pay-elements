@@ -22,18 +22,6 @@ const style = {
   }
 };
 
-// Create a payment request detail page
-var paymentRequest = stripe.paymentRequest({
-  country: 'US',
-  currency: 'usd',
-  total: {
-    label: 'Demo total',
-    amount: 1099,
-  },
-  requestPayerName: true,
-  requestPayerEmail: true,
-});
-
 // Create an instance of the card Element.
 const card = elements.create('card', {style: style});
 
@@ -47,6 +35,32 @@ card.addEventListener('change', function(event) {
     displayError.textContent = event.error.message;
   } else {
     displayError.textContent = '';
+  }
+});
+
+// Create a payment request detail page
+var paymentRequest = stripe.paymentRequest({
+  country: 'US',
+  currency: 'usd',
+  total: {
+    label: 'Demo total',
+    amount: 1099,
+  },
+  requestPayerName: true,
+  requestPayerEmail: true,
+});
+
+// Mount payment request button
+var prButton = elements.create('paymentRequestButton', {
+  paymentRequest: paymentRequest,
+});
+
+// Check the availability of the Payment Request API first.
+paymentRequest.canMakePayment().then(function(result) {
+  if (result) {
+    prButton.mount('#payment-request-element');
+  } else {
+    document.getElementById('payment-request-element').style.display = 'none';
   }
 });
 
